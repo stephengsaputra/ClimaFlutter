@@ -20,3 +20,5 @@ const kConditionTextStyle = TextStyle(
 );
 
 const API_KEY = 'c8b777d2b0e1c695c3665d24e4f3c62b';
+
+const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';

@@ -25,12 +25,16 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void updateUI(weatherData) {
-    double temp = weatherData['main']['temp'];
-    temperature = temp.round().toInt();
-    weatherCondition = weatherData['weather'][0]['id'];
-    cityName = weatherData['name'];
+    setState(() {
+      if (weatherData == null) {
+        return;
+      }
 
-    print(temperature);
+      double temp = weatherData['main']['temp'];
+      temperature = temp.round().toInt();
+      weatherCondition = weatherData['weather'][0]['id'];
+      cityName = weatherData['name'];
+    });
   }
 
   @override
@@ -55,13 +59,18 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   TextButton(
-                    onPressed: () {},
+                    style: TextButton.styleFrom(foregroundColor: Colors.white),
+                    onPressed: () async {
+                      var weatherData = await weatherModel.getLocationWeather();
+                      updateUI(weatherData);
+                    },
                     child: Icon(
                       Icons.near_me,
                       size: 50.0,
                     ),
                   ),
                   TextButton(
+                    style: TextButton.styleFrom(foregroundColor: Colors.white),
                     onPressed: () {},
                     child: Icon(
                       Icons.location_city,
